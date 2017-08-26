@@ -1,8 +1,10 @@
 package com.meidian.springbootdemo.dao;
 
 import com.meidian.springbootdemo.entity.Access;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface test {
+@Mapper
+public interface TestDao {
 
     public Access select();
 }

@@ -3,6 +3,7 @@ package com.meidian.springbootdemo.config.mybatis;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 /*数据库源配置*/
@@ -83,6 +84,7 @@ public class DataSourceConfiguration {
 
     /*数据库连接池*/
     @Bean
+    @Primary  //在同样的DataSource中，首先使用被标注的DataSource
     public BasicDataSource dataSource(){
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(driver);

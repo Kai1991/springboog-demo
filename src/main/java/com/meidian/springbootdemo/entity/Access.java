@@ -1,6 +1,8 @@
 package com.meidian.springbootdemo.entity;
 
-public class Access {
+import java.io.Serializable;
+
+public class Access implements Serializable{
     /**权限id*/
     private Long id;
 

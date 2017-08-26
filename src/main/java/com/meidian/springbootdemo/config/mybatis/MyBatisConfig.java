@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,7 +22,6 @@ import javax.sql.DataSource;
 public class MyBatisConfig implements TransactionManagementConfigurer {
 
     @Autowired
-    @Qualifier("")
     private DataSource dataSource;
 
     @Override
@@ -32,8 +33,16 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
+        /*设置实体类的包*/
+        bean.setTypeAliasesPackage("com.meidian.springbootdemo.entity");
 
+        /*设置插件*/
+
+
+        //设置mapper文件地址
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
+            bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
             return bean.getObject();
         } catch (Exception e) {
             e.printStackTrace();

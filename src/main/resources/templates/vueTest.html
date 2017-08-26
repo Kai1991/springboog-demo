@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>testVue</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+    </div>
+
+    <div id="app2">
+        <span v-bind:title="message">
+                放在上面
+        </span>
+    </div>
+
+    <div id="app-3">
+        <p v-if="seen">现在你看到我了</p>
+    </div>
+
+    <div id="app4">
+        <ol>
+            <todo-item
+                    v-for="item in groList"
+                    v-bind:todo = "item"
+                    v-bind:key = "item.id">
+            </todo-item>
+        </ol>
+    </div>
+
+</body>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            message : 'Hello Word!'
+        }
+    });
+
+    var app2 = new Vue({
+        el: "#app2",
+        data: {
+            message : "页面加载中" +  new Date().toLocaleDateString()
+        }
+    })
+
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+            seen: true
+        }
+    })
+
+    //组件
+    Vue.component('todo-item',{
+        props:['todo'],
+        template: '<li>{{todo.text}}</li>'
+    })
+    var app4 = new Vue({
+        el: "#app4",
+        data: {
+            groList : [
+                { id: 0, text: '蔬菜' },
+                { id: 1, text: '奶酪' },
+                { id: 2, text: '随便其他什么人吃的东西' }
+            ]
+        }
+    })
+</script>
+</html>
